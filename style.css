@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #000;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    perspective: 1500px;
+    cursor: default;
+}
+
+#matrix-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.4;
+}
+
+.card {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 40px;
+    padding: 45px 35px 30px; /* Немного изменил падинги */
+    text-align: center;
+    width: 360px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    cursor: pointer;
+}
+
+.profile-img-container {
+    position: relative;
+    width: 120px; height: 120px;
+    margin: 0 auto 20px;
+    transform: translateZ(70px);
+}
+
+.profile-img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-img-container::after {
+    content: '';
+    position: absolute;
+    top: -8px; left: -8px; right: -8px; bottom: -8px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ffcce6, #ff99cc, #ffcce6);
+    z-index: 1;
+    filter: blur(15px);
+    opacity: 0.6;
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.08); opacity: 0.8; }
+}
+
+.name { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 5px; transform: translateZ(50px); }
+.bio { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; transform: translateZ(40px); }
+
+.social-links {
+    display: flex; flex-direction: column; gap: 12px;
+    transform: translateZ(30px);
+    margin-bottom: 25px;
+}
+
+.btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    text-decoration: none; color: #fff; padding: 14px; border-radius: 18px;
+    font-size: 14px; font-weight: 500; background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.btn-tg-chat:hover { background: #0088cc; box-shadow: 0 0 20px rgba(0, 136, 204, 0.4); transform: scale(1.03); }
+.btn-tg-channel:hover { background: #fff; color: #000; box-shadow: 0 0 25px rgba(255, 255, 255, 0.3); transform: scale(1.03); }
+.btn-tiktok:hover { background: #000; box-shadow: -4px 0 12px rgba(255, 0, 80, 0.5), 4px 0 12px rgba(0, 242, 234, 0.5); transform: scale(1.03); }
+
+/* Стиль надписи внутри карточки */
+.card-music-hint {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: translateZ(20px);
+    margin-top: 10px;
+    transition: color 0.3s;
+}
+
+.card:hover .card-music-hint {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.card-music-hint i {
+    color: #ff3399;
+    margin: 0 5px;
+}
+
+/* Частицы сердец */
+.heart-particle {
+    position: absolute; color: #ff3399; pointer-events: none;
+    z-index: 10; font-size: 20px;
+    animation: flyAndFade 1.5s ease-out forwards;
+}
+
+@keyframes flyAndFade {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(0.5) rotate(var(--r)); opacity: 0; }
+}
